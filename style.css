@@ -1,0 +1,45 @@
+:root { font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial; }
+body { margin: 0; padding: 14px; background: #0b0c10; color: #e8e8e8; }
+header { margin-bottom: 12px; }
+h1 { margin: 0 0 6px 0; font-size: 20px; }
+p { margin: 0; opacity: 0.85; }
+main { display: grid; gap: 12px; }
+.card { background: #151823; border: 1px solid #2a2f45; border-radius: 14px; padding: 12px; }
+h2 { margin: 0 0 10px 0; font-size: 16px; }
+.row { display: flex; gap: 8px; align-items: center; }
+input, textarea, select {
+  width: 100%;
+  background: #0f1220;
+  color: #e8e8e8;
+  border: 1px solid #2a2f45;
+  border-radius: 12px;
+  padding: 10px;
+  outline: none;
+}
+textarea { resize: vertical; }
+button {
+  border: 1px solid #2a2f45;
+  background: #0f1220;
+  color: #e8e8e8;
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+button.primary { background: #2a6cff; border-color: #2a6cff; }
+button.secondary { opacity: 0.85; }
+.previewWrap { margin-top: 10px; }
+.previewWrap img { width: 100%; border-radius: 12px; border: 1px solid #2a2f45; }
+.hidden { display: none; }
+.out {
+  white-space: pre-wrap;
+  line-height: 1.35;
+  background: #0f1220;
+  border: 1px solid #2a2f45;
+  border-radius: 12px;
+  padding: 10px;
+  min-height: 120px;
+}
+small { opacity: 0.8; }
+.hint { display: block; margin-top: 8px; opacity: 0.8; }
+footer { margin-top: 10px; opacity: 0.7; }
