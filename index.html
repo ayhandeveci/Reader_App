@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>PDF Screenshot Tutor</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- pdf.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.js"></script>
 </head>
 <body>
   <header>
     <h1>PDF Screenshot Tutor</h1>
-    <p>Okuduğun yerin ekran görüntüsünü yükle, sorunu yaz, cevap al.</p>
+    <p>PDF’yi yükle → oku → bulunduğun sayfayı tek tuşla sor.</p>
   </header>
 
   <main>
@@ -23,17 +26,46 @@
       <small id="keyStatus"></small>
     </section>
 
+    <!-- PDF Viewer -->
     <section class="card">
-      <h2>Screenshot</h2>
+      <h2>PDF</h2>
+      <input id="pdfInput" type="file" accept="application/pdf" />
+
+      <div class="row">
+        <button id="prevPage" class="secondary">◀︎</button>
+        <small id="pageInfo">Sayfa: - / -</small>
+        <button id="nextPage" class="secondary">▶︎</button>
+        <button id="useThisPage" class="secondary">Bu Sayfayı Kullan</button>
+      </div>
+
+      <div id="pdfWrap" class="previewWrap hidden">
+        <canvas id="pdfCanvas"></canvas>
+      </div>
+
+      <small class="hint">
+        “Bu Sayfayı Kullan” → o an ekranda görünen sayfayı otomatik görsel olarak GPT’ye hazırlar.
+      </small>
+    </section>
+
+    <!-- Optional: manual image upload still available -->
+    <section class="card">
+      <h2>Opsiyonel: Manuel Screenshot</h2>
       <input id="imageInput" type="file" accept="image/*" />
       <div id="previewWrap" class="previewWrap hidden">
         <img id="preview" alt="Preview" />
       </div>
+      <small class="hint">PDF’den otomatik almayı kullanmak daha rahat. Bu alan opsiyonel.</small>
     </section>
 
     <section class="card">
       <h2>Mesajın</h2>
-      <textarea id="userMsg" rows="6" placeholder="Örn: Bu paragrafı sınav mantığıyla açıkla. Varsayım nedir? 2 örnek soru üret."></textarea>
+      <textarea id="userMsg" rows="6" placeholder="Örn: Bu sayfayı sınav mantığıyla açıkla. Varsayım nedir? 2 örnek soru üret."></textarea>
+
+      <div class="row">
+        <button id="btnExplain" class="pill">Sadece Açıkla</button>
+        <button id="btnExam" class="pill">Sınav Sorusu Üret</button>
+        <button id="btnFlash" class="pill">Flashcard</button>
+      </div>
 
       <div class="row">
         <select id="mode">
@@ -46,13 +78,40 @@
       </div>
 
       <small class="hint">
-        İpucu: Kitabın tamamını göndermiyoruz. Sadece ekran görüntüsü + senin metnin.
+        Not: GPT’ye giden görsel = ya PDF sayfası (canvas) ya da seçtiğin manuel screenshot.
       </small>
     </section>
 
     <section class="card">
       <h2>Yanıt</h2>
+      <div class="row">
+        <button id="copyAnswer" class="secondary">Cevabı Kopyala</button>
+        <button id="addToNotes" class="secondary">Yanıtı Notlara Ekle</button>
+        <button id="addToMistakes" class="secondary">Yanıtı Yanlışlarıma Ekle</button>
+      </div>
       <div id="out" class="out"></div>
+      <small id="toast" class="toast hidden"></small>
+    </section>
+
+    <section class="card">
+      <h2>Not Defteri (Session)</h2>
+      <div class="row">
+        <button id="copyNotes" class="secondary">Notları Kopyala</button>
+        <button id="clearNotes" class="secondary danger">Notları Temizle</button>
+      </div>
+      <div id="notes" class="out smallout"></div>
+      <small class="hint">Notlar tarayıcı açık kaldığı sürece kalır (sessionStorage).</small>
+    </section>
+
+    <section class="card">
+      <h2>Bugünkü Yanlışlarım</h2>
+      <textarea id="mistakeInput" rows="3" placeholder="Yanlışını kısa yaz: (Konu) – (ne karıştırdın?) – (doğru düşünce)"></textarea>
+      <div class="row">
+        <button id="addMistake" class="secondary">Yanlışı Ekle</button>
+        <button id="copyMistakes" class="secondary">Yanlışları Kopyala</button>
+        <button id="clearMistakes" class="secondary danger">Yanlışları Temizle</button>
+      </div>
+      <div id="mistakes" class="out smallout"></div>
     </section>
   </main>
 
