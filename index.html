@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PDF Screenshot Tutor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>PDF Screenshot Tutor</h1>
+    <p>Okuduğun yerin ekran görüntüsünü yükle, sorunu yaz, cevap al.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Session Key</h2>
+      <div class="row">
+        <input id="apiKey" type="password" placeholder="OPENAI_API_KEY (session boyunca)" />
+        <button id="saveKey">Kaydet</button>
+        <button id="clearKey" class="secondary">Temizle</button>
+      </div>
+      <small id="keyStatus"></small>
+    </section>
+
+    <section class="card">
+      <h2>Screenshot</h2>
+      <input id="imageInput" type="file" accept="image/*" />
+      <div id="previewWrap" class="previewWrap hidden">
+        <img id="preview" alt="Preview" />
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mesajın</h2>
+      <textarea id="userMsg" rows="6" placeholder="Örn: Bu paragrafı sınav mantığıyla açıkla. Varsayım nedir? 2 örnek soru üret."></textarea>
+
+      <div class="row">
+        <select id="mode">
+          <option value="study">Çalışma Notu</option>
+          <option value="exam">Sınav Modu (soru + cevap)</option>
+          <option value="flashcards">Flashcard</option>
+        </select>
+
+        <button id="ask" class="primary">Gönder</button>
+      </div>
+
+      <small class="hint">
+        İpucu: Kitabın tamamını göndermiyoruz. Sadece ekran görüntüsü + senin metnin.
+      </small>
+    </section>
+
+    <section class="card">
+      <h2>Yanıt</h2>
+      <div id="out" class="out"></div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Backend yok. Key sessionStorage’da tutulur (tarayıcı kapanınca gider).</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
